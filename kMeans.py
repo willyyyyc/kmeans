@@ -22,7 +22,6 @@ print(y)
 
 fig, ax = plt.subplots()
 plt.scatter(x, y)
-plt.scatter(x, y, 'y') #it thinks this is s
 plt.show()
 
 
