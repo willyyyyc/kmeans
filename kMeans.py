@@ -45,7 +45,7 @@ ax2.scatter(x, y)
 plt.show()
 
 
-
+#note: add an animation of second graph, like on the wikipedia page, refresh the graph with each iteration
 
 #reference for continued use:
 #https://matplotlib.org/stable/tutorials/introductory/quick_start.html
