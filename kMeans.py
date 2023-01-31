@@ -13,10 +13,19 @@ class DataPoint:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
-#input n, the number of randomly generated points
+class Centroid:
+    def __init__(self, x, y, cluster):
+        self.x = x
+        self.y = y
+        self.cluster = cluster
+    
+
+#user input parameters
 n = int(input("Enter an integer n to generate n points: "))
 r = int(input("Enter an integer r to set range of x and y where x,y E (-r, r): "))
+k = 3
 
+#create data points:
 x = []
 y = []
 i = 0
@@ -24,8 +33,7 @@ while i <= n:
     x.append(random.randrange(-1 * r, r + 1))
     y.append(random.randrange(-1 * r, r + 1))
     i+=1
-
-#print data points; a list of DataPoint objects containing an x and y (representing a coordinate on the plot)
+    
 data_points = []
 i = 0
 while i <= n:
@@ -33,12 +41,22 @@ while i <= n:
     data_points.append(new_dp)
     i += 1
 
+#print data points
 for dp in data_points:
     print(dp)
+print(data_points)
+
+#k-means clustering algorithm
+#select the first k data points to act as "seeds" for the clusters to grow around
+centroids = []
+i = 0
+while i < k:
+    centroid = Centroid[data_points[i].x, data_points[i].y, list]
+    centroids.append(centroid)
+    i += 1
 
 
-#display two axes
-    
+#plot initial data points (twice for now)
 fig, (ax1, ax2) = plt.subplots(1,2)
 ax1.scatter(x, y)
 ax2.scatter(x, y)
