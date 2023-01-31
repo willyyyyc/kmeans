@@ -1,10 +1,12 @@
-#program to generate n random points on a graph of range (-x,x) and (-y,y)
+#program to generate n random data points on a graph of range (-x,x) and (-y,y)
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 import random
 
+#data point class
 class DataPoint:
     def __init__(self, x, y):
         self.x = x
@@ -13,12 +15,38 @@ class DataPoint:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
-class Centroid:
-    def __init__(self, x, y, cluster):
-        self.x = x
-        self.y = y
-        self.cluster = cluster
+#centroid inherits DataPoint
+class Centroid(DataPoint):
+    def __init__(self, x, y):
+        DataPoint.__init__(self, x, y)
+        self.cluster = []
+
+    def recompute(self):
+        cluster_x = []
+        cluster_y = []
+        for dp in self.cluster:
+            cluster_x.append(dp.x)
+            cluster_y.append(dp.y)
+        self.x = np.mean(cluster_x)
+        self.y = np.mean(cluster_y)
+
+    def __str__(self):
+        string_rep = f"Centroid: ({self.x}, {self.y}). Cluster: "
+        for dp in self.cluster:
+            string_rep += str(dp)
+        return string_rep
+
     
+def assign(centroids, dp):
+    #find the closest centroid to the data point by comparing euclidean distances
+    distances = []
+    for centroid in centroids:     
+        distances.append(math.sqrt((dp.x - centroid.x)**2 + (dp.y - centroid.y)**2))
+
+    #assign data point to list contained in closest centroid
+    closest = distances.index(min(distances))
+    centroids[closest].cluster.append(dp)
+
 
 #user input parameters
 n = int(input("Enter an integer n to generate n points: "))
@@ -44,17 +72,35 @@ while i <= n:
 #print data points
 for dp in data_points:
     print(dp)
-print(data_points)
+print(str(data_points))
 
 #k-means clustering algorithm
 #select the first k data points to act as "seeds" for the clusters to grow around
 centroids = []
 i = 0
 while i < k:
-    centroid = Centroid[data_points[i].x, data_points[i].y, list]
+    x1 = data_points[i].x
+    y1 = data_points[i].y
+    centroid = Centroid(x1, y1)
     centroids.append(centroid)
     i += 1
 
+convergence = False
+while not convergence:
+    #reassignment: iterate through data points, assigning each point to the nearest centroid
+    for dp in data_points:
+        assign(centroids, dp)
+    
+    #recompution: "average" of data points
+    for centroid in centroids:
+        centroid.recompute()
+
+    #check convergenve
+    #for now, rig to have one iteration
+    convergence = True
+
+for centroid in centroids:
+    print(centroid)
 
 #plot initial data points (twice for now)
 fig, (ax1, ax2) = plt.subplots(1,2)
