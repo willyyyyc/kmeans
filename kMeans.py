@@ -35,9 +35,13 @@ while i <= n:
 
 for dp in data_points:
     print(dp)
+
+
+#display two axes
     
-fig, ax = plt.subplots()
-plt.scatter(x, y)
+fig, (ax1, ax2) = plt.subplots(1,2)
+ax1.scatter(x, y)
+ax2.scatter(x, y)
 plt.show()
 
 
