@@ -105,11 +105,29 @@ for centroid in centroids:
 #create two sublots of equal size to display unclustered and clustered data
 fig, (ax1, ax2) = plt.subplots(ncols=2)
 
-ax1.scatter(x, y)
-ax2.scatter(x, y)
+ax1.scatter(x, y, c="k")
+
+#plotting the clusters
+colours = ["r", "g", "b"]
+i = 0
+for centroid in centroids:
+    cx = []
+    cy = []
+    for dp in centroid.cluster:
+        cx.append(dp.x)
+        cy.append(dp.y)
+    ax2.scatter(cx, cy, c=colours[i])
+    i += 1
+
+#plotting the centroids
+for centroid in centroids:
+    ax2.plot(centroid.x, centroid.y, "k+")
 
 ax1.set_box_aspect(1)
 ax2.set_box_aspect(1)
+ax1.set_title("Unclustered Random Data Points")
+ax2.set_title("Clustered Data Points")
+plt.suptitle("K-MEANS CLUSTERING ALGORITHM")
 
 plt.show()
 
