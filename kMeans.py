@@ -102,12 +102,16 @@ while not convergence:
 for centroid in centroids:
     print(centroid)
 
-#plot initial data points (twice for now)
-fig, (ax1, ax2) = plt.subplots(1,2)
+#create two sublots of equal size to display unclustered and clustered data
+fig, (ax1, ax2) = plt.subplots(ncols=2)
+
 ax1.scatter(x, y)
 ax2.scatter(x, y)
-plt.show()
 
+ax1.set_box_aspect(1)
+ax2.set_box_aspect(1)
+
+plt.show()
 
 #note: add an animation of second graph, like on the wikipedia page, refresh the graph with each iteration
 
