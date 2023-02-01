@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 import random
+import copy
 
 #data point class
 class DataPoint:
@@ -36,17 +37,29 @@ class Centroid(DataPoint):
             string_rep += str(dp)
         return string_rep
 
-    
 def assign(centroids, dp):
     #find the closest centroid to the data point by comparing euclidean distances
     distances = []
-    for centroid in centroids:     
+    for centroid in centroids:   
         distances.append(math.sqrt((dp.x - centroid.x)**2 + (dp.y - centroid.y)**2))
 
     #assign data point to list contained in closest centroid
     closest = distances.index(min(distances))
     centroids[closest].cluster.append(dp)
 
+def make_copy(centroids):
+    copied_centroids = []
+    for centroid in centroids:
+        copied_centroid = copy.deepcopy(centroid)
+        copied_centroids.append(copied_centroid)
+    return copied_centroids
+
+def convergance(centroids, copied_centroids):
+    for centroid in centroids:
+        for copied_centroid in copied_centroids:
+            if centroid.cluster != copied_centroid.cluster:
+                return False
+    return True
 
 #user input parameters
 n = int(input("Enter an integer n to generate n points: "))
@@ -72,7 +85,7 @@ while i < n:
 #print data points
 for dp in data_points:
     print(dp)
-print(str(data_points))
+#print(str(data_points))
 
 #k-means clustering algorithm
 #select the first k data points to act as "seeds" for the clusters to grow around
@@ -85,23 +98,36 @@ while i < k:
     centroids.append(centroid)
     i += 1
 
-convergence = False
-while not convergence:
+iterations = 0
+while True:
+    #make deep copy of centroid objects
+    if iterations > 0:
+        copied_centroids = make_copy(centroids)
+
     #reassignment: iterate through data points, assigning each point to the nearest centroid
+    for centroid in centroids:
+        centroid.cluster.clear()
     for dp in data_points:
         assign(centroids, dp)
-    
+
+    #compare clusters of copied centroid objects to new clusters
+    if iterations > 0 and convergance(centroids, copied_centroids):
+        break
+
     #recompution: "average" of data points
     for centroid in centroids:
         centroid.recompute()
+    
+    if iterations > 20:
+        break
 
-    #check convergenve
-    #for now, rig to have one iteration
-    convergence = True
+    iterations += 1
 
 for centroid in centroids:
     print(centroid)
-
+print(iterations)
+for copied_centroid in copied_centroids:
+    print(copied_centroid)
 #create two sublots of equal size to display unclustered and clustered data
 fig, (ax1, ax2) = plt.subplots(ncols=2)
 
