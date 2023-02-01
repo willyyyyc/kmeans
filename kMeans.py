@@ -57,14 +57,14 @@ k = 3
 x = []
 y = []
 i = 0
-while i <= n:
+while i < n:
     x.append(random.randrange(-1 * r, r + 1))
     y.append(random.randrange(-1 * r, r + 1))
     i+=1
     
 data_points = []
 i = 0
-while i <= n:
+while i < n:
     new_dp = DataPoint(x[i], y[i])
     data_points.append(new_dp)
     i += 1
