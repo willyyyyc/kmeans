@@ -158,6 +158,7 @@ plt.suptitle("K-MEANS CLUSTERING ALGORITHM")
 plt.show()
 
 #note: add an animation of second graph, like on the wikipedia page, refresh the graph with each iteration
+#repo test
 
 #reference for continued use:
 #https://matplotlib.org/stable/tutorials/introductory/quick_start.html
