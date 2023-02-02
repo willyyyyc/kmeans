@@ -16,6 +16,9 @@ class DataPoint:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
 #centroid inherits DataPoint
 class Centroid(DataPoint):
     def __init__(self, x, y):
@@ -36,6 +39,9 @@ class Centroid(DataPoint):
         for dp in self.cluster:
             string_rep += str(dp)
         return string_rep
+    
+    def cluster_length(self):
+        return len(self.cluster)
 
 def assign(centroids, dp):
     #find the closest centroid to the data point by comparing euclidean distances
@@ -53,12 +59,31 @@ def make_copy(centroids):
         copied_centroid = copy.deepcopy(centroid)
         copied_centroids.append(copied_centroid)
     return copied_centroids
-
+'''
 def convergance(centroids, copied_centroids):
     for centroid in centroids:
         for copied_centroid in copied_centroids:
             if centroid.cluster != copied_centroid.cluster:
                 return False
+
+    return True
+'''
+def convergance(centroids, copied_centroids):
+    print()
+    print("testing for convergence")
+    i = 0
+    while i < len(centroids):
+        if centroids[i].cluster_length() != copied_centroids[i].cluster_length():
+            return False
+        else:
+            j = 0
+            while j < centroids[i].cluster_length():
+                if centroids[i].cluster[j] != copied_centroids[i].cluster[j]:
+                    print("centroid " + str(i) + " and copied centroid " + str(i) + " dont match")
+                    return False
+                j += 1
+        i += 1
+    print("converged")
     return True
 
 #user input parameters
@@ -103,13 +128,29 @@ while True:
     #make deep copy of centroid objects
     if iterations > 0:
         copied_centroids = make_copy(centroids)
+        #debug
+        print("copy made")
+        for copied_centroid in copied_centroids:
+            print(copied_centroid)
+        print()
+        print()
+        print()
 
     #reassignment: iterate through data points, assigning each point to the nearest centroid
     for centroid in centroids:
         centroid.cluster.clear()
+        print(centroid)
     for dp in data_points:
         assign(centroids, dp)
 
+    #debug
+    print("centroids and their clusters after " + str(iterations) + " reasignment")
+    for centroid in centroids:
+        print(centroid)
+    print()
+    print()
+
+    #this is where the problem is: reassignment and recomputation is working and convergence is achieved but
     #compare clusters of copied centroid objects to new clusters
     if iterations > 0 and convergance(centroids, copied_centroids):
         break
@@ -118,6 +159,13 @@ while True:
     for centroid in centroids:
         centroid.recompute()
     
+    #debug
+    print("centroids and their clusters after " + str(iterations) + " recompution")
+    for centroid in centroids:
+        print(centroid)
+    print()
+    print()
+
     if iterations > 20:
         break
 
