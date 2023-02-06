@@ -1,3 +1,5 @@
+#test comment
+
 #program to generate n random data points on a graph of range (-x,x) and (-y,y)
 
 import matplotlib as mpl
@@ -166,7 +168,7 @@ while True:
     print()
     print()
 
-    if iterations > 20:
+    if iterations > 100:
         break
 
     iterations += 1
