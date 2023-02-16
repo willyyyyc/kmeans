@@ -10,7 +10,7 @@ I was inspired to try and write this algorithm from scratch after learning about
 
 ### Example Output - Graph displaying unclustered and clustered data:
 
-    ![figure generated with matplotlib representing output](/Screenshot_2023-02-15_19-59-34.png)
+    ![figure generated with matplotlib representing output](Screenshot_2023-02-15_19-59-34.png)
 
 ## Standard Algorithm:
 
