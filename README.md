@@ -39,6 +39,7 @@ I was inspired to try and write this algorithm from scratch after learning about
 - At the moment, "k" is set to 3. This means that regardless of the data size, there will always be three clusters. In the future, I plan on allowing the user to define k but I set it at some arbitrary constant value while I was trying to figure out the rest of the algorithm.
 - In the event that convergence does not occur fast enough (a potential problem with this algorithm if the starting centroids are not optomized) there is a breakpoint set after 20 iterations. It has yet to take 20 iterations, but that is likely due to the size of the dataset.
 - I would like to compare this to the K-Means algorithm in the Python library some day. It would be very interesting to see what happens with the same dataset!
+- There is currently no way of ensuring n unique values, and repeats are therfore counted as one. This may be updated in the future.
 
 ## References and Sources:
 
