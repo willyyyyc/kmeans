@@ -10,7 +10,7 @@ I was inspired to try and write this algorithm from scratch after learning about
 
 ### Example Output - Graph displaying unclustered and clustered data:
 
-    ![figure generated with matplotlib representing output](Screenshot_2023-02-15_19-59-34.png?raw=true)
+![figure generated with matplotlib representing output](Screenshot_2023-02-15_19-59-34.png?raw=true)
 
 ## Standard Algorithm:
 
@@ -32,7 +32,7 @@ I was inspired to try and write this algorithm from scratch after learning about
 
 1. Enter an integer "n" to generate n data points. Enter an integer "r" to set the magnitude of the largest and smallest x and y; i.e. define a range where x is in [-r, r] and y is in [-r, r].
 
-2. Observe the two graphs that are displayed!
+2. Observe the two graphs that are displayed! Each cluster will be a different colour and the centroids will be represented by plus marks.
 
 ## Notes:
 
